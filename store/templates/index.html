@@ -7,8 +7,10 @@
             <!--Filters-->
             <div class="col-lg-3 mx-auto">
                 <div class="list-group">
+                    <a href="/" class="list-group-item list-group-item-action">All Products</a>
                     {% for category in categoryList %}
-                        <a href="#" class="list-group-item list-group-item-action">{{ category.category }}</a>
+                        <a href="/?category={{ category.id }}"
+                           class="list-group-item list-group-item-action">{{ category.category }}</a>
                     {% endfor %}
                 </div>
 

@@ -10,3 +10,4 @@ class Category(models.Model):
     @staticmethod
     def getAllCategories():
         return Category.objects.all()
+
