@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="p-4 m-4">
+            <div class="col-lg-5 mx-auto border rounded pt-2 pb-3">
+                <form action="/signup" method="POST" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    <formh2 style="padding-left:125px;">Sign Up!</formh2>
+                    <div class="form-group">
+                        <label for="first name">First Name</label>
+                        <input type="text" name='fname' class="form-control form-control-sm" placeholder="First Name"
+                               required>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="last name">Last Name</label>
+                        <input type="text" name='lname' class="form-control form-control-sm" placeholder="Last Name"
+                               required>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone number">Phone</label>
+                        <input type="text" name=phone class="form-control form-control-sm " placeholder="+91" text
+                               required>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" name='email' class="form-control form-control-sm" placeholder="abc@xyz.com"
+                               required>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" name='pswd' class="form-control form-control-sm" placeholder="********"
+                               required>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Disable form submissions if there are invalid fields
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                // Get the forms we want to add validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+{% endblock %}  

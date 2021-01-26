@@ -1,5 +1,8 @@
 <!--extending base.html-->
 {% extends 'base.html' %}
+<!--Title of page-->
+{% block title %}Store{% endblock %}
+
 <!--body-->
 {% block  content %}
     <div class="container-fluid">
@@ -13,7 +16,6 @@
                            class="list-group-item list-group-item-action">{{ category.category }}</a>
                     {% endfor %}
                 </div>
-
             </div>
             <!--Products-->
             <div id="products" class="col-lg-9 mx-auto">
