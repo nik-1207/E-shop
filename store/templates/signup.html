@@ -6,11 +6,13 @@
                 <form action="/signup" method="POST" class="needs-validation" novalidate>
                     {% csrf_token %}
                     <h2 style="padding-left:125px;">Sign Up!</h2>
-                    <H3 style="padding-left: 78px">
-                        {% block error %}
-                            {{ error }}
-                        {% endblock %}
-                    </H3>
+                    {% block error %}
+                        {% if error %}
+                            <H3 style="padding-left: 78px;" class='alert alert-danger'>
+                                {{ error }}
+                            </H3>
+                        {% endif %}
+                    {% endblock %}
                     <div class="form-group">
                         <label for="first name">First Name</label>
                         <input type="text" name='fname' class="form-control form-control-sm" placeholder="First Name"
