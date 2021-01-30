@@ -33,3 +33,22 @@ def signup(response):
     except:
         new_customer.save()
         return index(response)
+
+
+def login(response):
+    if response == 'GET':
+        return render(response, 'login.html')
+    else:
+        email = response.POST.get('email')
+        password = response.POST.get('pswd')
+        # Todo: adjust method to have proper functionality of signup
+        '''try:
+           cust_obj=Customer.objects.get(email=email)
+            flag=check_password(cust_obj.password,password)
+            print(flag)
+            if flag:
+                print('Login successfull')
+                return index(response)
+            return render(response, 'login.html', {'error': 'Incorrect Password'})
+        except:
+            return render(response, 'login.html',{'error':'account does not exist'})'''
