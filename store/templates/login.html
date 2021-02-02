@@ -7,7 +7,11 @@
                 <form action="/login" method="POST">
                     {% csrf_token %}
                     <h2 style="padding-left:125px;">Login here!</h2>
-
+                    {% if error %}
+                        <H3 style="padding-left: 78px;" class='alert alert-danger'>
+                            {{ error }}
+                        </H3>
+                    {% endif %}
                     <div class="form-group">
                         <label for="email">E-mail</label>
                         <input type="email" name='email' class="form-control form-control-sm" placeholder="abc@xyz.com"

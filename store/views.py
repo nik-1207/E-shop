@@ -1,4 +1,4 @@
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
 from django.shortcuts import render
 
 from .models.Category import Category
@@ -36,19 +36,16 @@ def signup(response):
 
 
 def login(response):
-    if response == 'GET':
+    if response.method == 'GET':
         return render(response, 'login.html')
-    else:
-        email = response.POST.get('email')
-        password = response.POST.get('pswd')
-        # Todo: adjust method to have proper functionality of signup
-        '''try:
-           cust_obj=Customer.objects.get(email=email)
-            flag=check_password(cust_obj.password,password)
-            print(flag)
-            if flag:
-                print('Login successfull')
-                return index(response)
-            return render(response, 'login.html', {'error': 'Incorrect Password'})
-        except:
-            return render(response, 'login.html',{'error':'account does not exist'})'''
+    email = response.POST.get('email')
+    password = response.POST.get('pswd')
+    try:
+        existing_customer = Customer.objects.get(email=email)
+        if check_password(password, existing_customer.password):
+            return index(response)
+        else:
+            return render(response, 'login.html', {'error': 'wrong password!'})
+
+    except:
+        return render(response, 'login.html', {'error': 'user does not exist'})
