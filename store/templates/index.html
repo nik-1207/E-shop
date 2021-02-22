@@ -2,6 +2,8 @@
 {% extends 'base.html' %}
 <!--Title of page-->
 {% block title %}Store{% endblock %}
+<!--custom methods-->
+{% load custom_methods %}
 
 <!--body-->
 {% block  content %}
@@ -27,7 +29,13 @@
                                 <h5 class="card-title">{{ product.name }}</h5>
                                 <h5 class="card-text">price : {{ product.price }}</h5>
                                 <p class="card-text" style="margin-bottom :10px ; ">{{ product.description }}</p>
-                                <a href="#" class="btn btn-primary">Add to cart</a>
+                                {{ product  | is_in_cart:request.session.cart }}
+                                <form action="/" method="POST">
+                                    {% csrf_token %}
+                                    <input type="text" hidden name="product_id" value="{{ product.id }}">
+                                    <input type="submit" class="float-right btn btn-light border btn-sm"
+                                           value="Add to Cart"/>
+                                </form>
                             </div>
                         </div>
                     {% endfor %}
