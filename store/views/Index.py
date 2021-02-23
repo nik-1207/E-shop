@@ -19,12 +19,19 @@ class Index(View):
         return render(response, 'index.html ', {'productList': productList, 'categoryList': categoryList})
 
     def post(self, response):
+        remove = response.POST.get('remove')
         product_id = response.POST.get('product_id')
         cart = response.session.get('cart')
         if cart:
             quantity = cart.get(product_id)
             if quantity:
-                cart[product_id] += 1
+                if remove:
+                    if quantity <= 1:
+                        cart.pop(product_id)
+                    else:
+                        cart[product_id] -= 1
+                else:
+                    cart[product_id] += 1
             else:
                 cart[product_id] = 1
         else:

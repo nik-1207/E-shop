@@ -23,19 +23,45 @@
             <div id="products" class="col-lg-9 mx-auto">
                 <div class="row mx-auto">
                     {% for product in productList %}
-                        <div class="card mx-auto mb-5" style="width: 18rem;">
+                        <div class="card mx-auto mb-5" style="width: 18rem;" id="{{ product.id }}">
                             <img class="card-img-top" src="{{ product.image.url }}" alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card-title">{{ product.name }}</h5>
                                 <h5 class="card-text">price : {{ product.price }}</h5>
                                 <p class="card-text" style="margin-bottom :10px ; ">{{ product.description }}</p>
-                                {{ product  | is_in_cart:request.session.cart }}
-                                <form action="/" method="POST">
-                                    {% csrf_token %}
-                                    <input type="text" hidden name="product_id" value="{{ product.id }}">
-                                    <input type="submit" class="float-right btn btn-light border btn-sm"
-                                           value="Add to Cart"/>
-                                </form>
+                            </div>
+                            <div class="card-footer row no-gutters ">
+                                {% if product|is_in_cart:request.session.cart %}
+                                    <!--add and subtract buttons-->
+                                    <div class="row" style="padding-left:10px; padding-top: 5px;">
+                                        <form action="/#{{ product.id }}" method="POST">
+                                            {% csrf_token %}
+                                            <input type="text" hidden name="product_id" value="{{ product.id }}"/>
+                                            <input type="submit" value="-" class="btn btn-block btn-secondary"
+                                                   style="padding-top: 7px;"/>
+                                            <input type="text" hidden name="remove" value="True"/>
+                                        </form>
+                                        <div class="text-center col ">
+                                            <b>Qunatity : </b>{{ product|cart_qty:request.session.cart }} in cart
+                                        </div>
+                                        <form action="/#{{ product.id }}" method="POST">
+                                            {% csrf_token %}
+                                            <input type="text" hidden name="product_id" value="{{ product.id }}">
+                                            <input type="submit" value="+" class="btn btn-block btn-secondary"
+                                                   style="padding-top: 7px;">
+
+                                        </form>
+                                    </div>
+                                {% else %}
+                                    <!--Cart button form -->
+                                    <form action="/#{{ product.id }}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="text" hidden name="product_id" value="{{ product.id }}">
+                                        <input type="submit" class=" btn btn-dark border btn-block"
+                                               style="width: 230%;height: 105%;"
+                                               value="Add to Cart"/>
+                                    </form>
+                                {% endif %}
                             </div>
                         </div>
                     {% endfor %}

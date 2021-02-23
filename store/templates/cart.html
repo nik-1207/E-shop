@@ -1,0 +1,43 @@
+<!--extending base.html-->
+{% extends 'base.html' %}
+<!--Title of page-->
+{% block title %}Store{% endblock %}
+<!--custom methods-->
+{% load custom_methods %}
+
+
+<!--body-->
+{% block  content %}
+    <div class="container">
+        <div class="border rounded p-4 m-4">
+            <P class="display-4 pl-5">Your Cart</P>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for product in productList %}
+                    <tr>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.price }}</td>
+                        <td>{{ product|cart_qty:request.session.cart }}</td>
+                        <td>{{ product|total_price:request.session.cart }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <th colspan="4"><b>Total:{{ productList|total:request.session.cart }}</b></th>
+                </tfoot>
+            </table>
+            <div class="m-3 p-3">
+                <a href="#" class="btn btn-dark border rounded col-lg-3 float-right">Checkout</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

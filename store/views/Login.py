@@ -27,3 +27,6 @@ class Login(View):
             return render(response, 'login.html', {'error': 'user does not exist'})
 
         pass
+def logout(response):
+    response.session.clear()
+    return redirect('login')
